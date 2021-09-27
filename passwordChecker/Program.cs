@@ -6,46 +6,31 @@ using System.Threading.Tasks;
 
 namespace TestApp
 {
-    class Program
+    class PasswordChecker
     {
         static void Main(string[] args)
         {
-
+            Console.WriteLine("Please enter your password");
             string password = Console.ReadLine();
-            int passwordLength = password.Length;
-            int hasSymbols;
-            bool hasUpperCaseLetters = false;
-            
+            bool hasUpperCaseLetters = password.Any(char.IsUpper);
+            bool hasSymbols = password.Any(ch => !Char.IsLetterOrDigit(ch));
 
-            //Handles upper case checking in password string
-            for (int i = 0; i < password.Length; i++)
-            {
-                if (Char.IsUpper(password[i]))
-                {
-                    hasUpperCaseLetters = true;
-                }
-            }
+            //Checks for upper case letters
             if (!hasUpperCaseLetters)
             {
                 Console.WriteLine("Your password doesn't contain uppercase letters");
             }
-
             //Checks for symbols in the password
-            hasSymbols = password.IndexOf("*");
-            if (hasSymbols == -1)
+            if (!hasSymbols)
             {
                 Console.WriteLine("Error! Your password has to include symbols");
             }           
-
             //Checks if the password is good
-            if(hasSymbols >= 0 && hasUpperCaseLetters)
+            if(hasSymbols && hasUpperCaseLetters)
             {
                 Console.WriteLine("Password is good");
             }
-           
             Console.ReadLine();
-
-
         }
     }
 }
